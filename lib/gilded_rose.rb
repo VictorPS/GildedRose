@@ -1,6 +1,7 @@
 require_relative "./items/sulfuras"
 require_relative "./items/aged_brie"
 require_relative "./items/backstage_passes"
+require_relative "./items/common"
 
 # The idea of this Kata is that we are working with a legacy system and there
 # are a few pieces of code that we shouldn't modify.
@@ -19,16 +20,8 @@ class GildedRose
         next Items::AgedBrie.new(item).update_quality
       elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
         next Items::BackstagePasses.new(item).update_quality
-      end
-
-      if item.quality > 0
-        item.quality = item.quality - 1
-      end
-      item.sell_in = item.sell_in - 1
-      if item.sell_in < 0
-        if item.quality > 0
-          item.quality = item.quality - 1
-        end
+      else
+        next Items::Common.new(item).update_quality
       end
     end
   end
