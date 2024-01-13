@@ -1,3 +1,5 @@
+require_relative "./items/sulfuras"
+
 # The idea of this Kata is that we are working with a legacy system and there
 # are a few pieces of code that we shouldn't modify.
 # In this case, we are not allowed to change the arguments of the initialize
@@ -9,6 +11,10 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
+      if item.name == "Sulfuras, Hand of Ragnaros"
+        next Items::Sulfuras.new(item).update_quality
+      end
+
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
