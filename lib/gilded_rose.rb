@@ -1,4 +1,5 @@
 require_relative "./items/sulfuras"
+require_relative "./items/aged_brie"
 
 # The idea of this Kata is that we are working with a legacy system and there
 # are a few pieces of code that we shouldn't modify.
@@ -13,6 +14,8 @@ class GildedRose
     @items.each do |item|
       if item.name == "Sulfuras, Hand of Ragnaros"
         next Items::Sulfuras.new(item).update_quality
+      elsif item.name == "Aged Brie"
+        next Items::AgedBrie.new(item).update_quality
       end
 
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
