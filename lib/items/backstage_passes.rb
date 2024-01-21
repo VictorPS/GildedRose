@@ -5,8 +5,6 @@ module Items
     end
 
     def update_quality
-      @item.sell_in = @item.sell_in - 1
-
       if @item.quality < 50
         @item.quality = @item.quality + 1
         if @item.sell_in < 11
@@ -20,6 +18,9 @@ module Items
           end
         end
       end
+
+      @item.sell_in = @item.sell_in - 1
+
       if @item.sell_in < 0
         @item.quality = @item.quality - @item.quality
       end
