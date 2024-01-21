@@ -28,22 +28,30 @@ describe GildedRose do
       end
     end
 
-    it "`Aged Brie` actually increases in `Quality` the older it gets" do
-      items = [Item.new("Aged Brie", 1, 0)]
-      GildedRose.new(items).update_quality
-      expect(items[0].quality).to eq 1
-    end
+    describe "Aged Brie" do
+      it "Before the sell by date has passed, increases `Quality` by 1" do
+        items = [Item.new("Aged Brie", 1, 0)]
+        GildedRose.new(items).update_quality
+        expect(items[0].quality).to eq 1
+      end
 
-    it "After the sell by date `Aged Brie` increases in `Quality` times two" do
-      items = [Item.new("Aged Brie", 0, 0)]
-      GildedRose.new(items).update_quality
-      expect(items[0].quality).to eq 2
-    end
+      it "Once the sell by date has passed, increases in `Quality` by 2" do
+        items = [Item.new("Aged Brie", 0, 0)]
+        GildedRose.new(items).update_quality
+        expect(items[0].quality).to eq 2
+      end
 
-    it "The `Quality` of an item is never more than `50`" do
-      items = [Item.new("Aged Brie", 0, 50)]
-      GildedRose.new(items).update_quality
-      expect(items[0].quality).to eq 50
+      it "The `Quality` of an item is never more than `50`" do
+        items = [Item.new("Aged Brie", 0, 50)]
+        GildedRose.new(items).update_quality
+        expect(items[0].quality).to eq 50
+      end
+
+      it "Sell by date can be negative" do
+        items = [Item.new("Aged Brie", 0, 0)]
+        GildedRose.new(items).update_quality
+        expect(items[0].sell_in).to eq -1
+      end
     end
 
     it "`Sulfuras, Hand of Ragnaros`, being a legendary item, \
